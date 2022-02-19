@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css">
 
     <title>Wordle in italiano, versione personale</title>
     <meta name="description" content="Indovina la parola nascosta in 6 tentativi. Un nuovo puzzle ogni giorno.">
@@ -118,6 +119,10 @@
     </style>
   </head>
   <body>
+    <input class="input" placeholder="Tap on the virtual keyboard to start" />
+    <div class="simple-keyboard"></div>
+    <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
+
     <canvas id="myCanvas" width="1100">
       Your browser does not support the canvas tag.
     </canvas>

@@ -24,6 +24,292 @@ function numeroACaso(min, max) {
 
 temp = "";
 var tentativi = 0;
+
+
+const Keyboard = window.SimpleKeyboard.default;
+
+const myKeyboard = new Keyboard({
+  onChange: input => onChange(input),
+  onKeyPress: button => onKeyPress(button)
+});
+
+function onChange(input) {
+  document.querySelector(".input").value = input;
+  console.log("Input changed", input);
+}
+
+function onKeyPress(button) {
+  console.log("Button pressed", button);
+  var name = button;
+  //console.log(`Key pressed ${name} \r\n Key code value: ${code}`);
+  if (temp.length <= 4 && name != "{bksp}" && name != "Alt" && name != "{enter}") {
+      temp += name.toUpperCase();
+  }
+  if (name == "{bksp}") {
+      temp = temp.slice(0, -1);
+  }
+  if (name == "{enter}" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) != undefined
+  && tentativi <=5) {
+      tentativi++;
+      document.getElementById("tentativi").innerHTML = "Tentativi: " + tentativi;
+      document.getElementById("messaggio").style.visibility = 'hidden';
+
+      tela = document.getElementById("myCanvas");
+      contesto = tela.getContext("2d");
+
+      copia_canvas = document.getElementById("copia1Canvas");
+      copia_canvas_contesto = copia_canvas.getContext("2d");
+
+      copia2_canvas = document.getElementById("copia2Canvas");
+      copia2_canvas_contesto = copia2_canvas.getContext("2d");
+
+      copia3_canvas = document.getElementById("copia3Canvas");
+      copia3_canvas_contesto = copia3_canvas.getContext("2d");
+
+      copia4_canvas = document.getElementById("copia4Canvas");
+      copia4_canvas_contesto = copia4_canvas.getContext("2d");
+
+      copia5_canvas = document.getElementById("copia5Canvas");
+      copia5_canvas_contesto = copia5_canvas.getContext("2d");
+
+      copia6_canvas = document.getElementById("copia6Canvas");
+      copia6_canvas_contesto = copia6_canvas.getContext("2d");
+      
+      var offset = tela.width / 5;
+      lettere_giuste = controllaParola(temp);
+      lettere_giuste_pos = controllaLettera(temp);
+      if (lettere_giuste_pos.length != 0) {
+          // da fare
+          //contesto.clearRect(0, 0, tela.width, tela.height); 
+          contesto.font = '50px Sans-serif';
+          for (let i = 0; i < lettere_giuste_pos.length; i++) {
+              switch (lettere_giuste_pos[i]) {
+                  case 0:
+                      contesto.fillStyle = "yellow";
+                      prima_lettera = contesto.fillRect(0, 0, offset, offset);
+                      contesto.fillStyle = "black";
+                      contesto.strokeStyle = "white";
+                      contesto.lineWidth = 10;
+                      contesto.strokeRect(0, 0, offset, offset);
+                      contesto.fillText(temp[0], offset/2 - 25, offset / 2 - 25);
+                      contesto.fillStyle = "black";
+                      break;
+                  case 1:
+                      contesto.fillStyle = "yellow";
+                      seconda_lettera = contesto.fillRect(offset, 0, offset, offset);
+                      contesto.fillStyle = "black";
+                      contesto.strokeStyle = "white";
+                      contesto.lineWidth = 10;
+                      contesto.strokeRect(offset, 0, offset, offset);
+                      contesto.fillText(temp[1], offset + offset/2 - 25, offset / 2 - 25);
+                      contesto.fillStyle = "black";
+                      break;
+                  case 2:
+                      contesto.fillStyle = "yellow";
+                      terza_lettera = contesto.fillRect(offset * 2, 0, offset, offset);
+                      contesto.fillStyle = "black";
+                      contesto.strokeStyle = "white";
+                      contesto.lineWidth = 10;
+                      contesto.strokeRect(offset * 2, 0, offset, offset);
+                      contesto.fillText(temp[2], offset * 2 + offset/2 - 25, offset / 2 - 25);
+                      contesto.fillStyle = "black";
+                      break;
+                  case 3:
+                      contesto.fillStyle = "yellow";
+                      quarta_lettera = contesto.fillRect(offset * 3, 0, offset, offset);
+                      contesto.fillStyle = "black";
+                      contesto.strokeStyle = "white";
+                      contesto.lineWidth = 10;
+                      contesto.strokeRect(offset * 3, 0, offset, offset);
+                      contesto.fillText(temp[3], offset * 3 + offset/2 - 25, offset / 2 - 25);
+                      contesto.fillStyle = "black";
+                      break;
+                  case 4:
+                      contesto.fillStyle = "yellow";
+                      quinta_lettera = contesto.fillRect(offset * 4, 0, offset, offset);
+                      contesto.fillStyle = "black";
+                      contesto.strokeStyle = "white";
+                      contesto.lineWidth = 10;
+                      contesto.strokeRect(offset * 4, 0, offset, offset);
+                      contesto.fillText(temp[4], offset * 4 + offset/2 - 25, offset / 2 - 25);
+                      contesto.fillStyle = "black";
+                      break;
+              }
+          }
+      }
+      if (lettere_giuste.length != 0) {
+          // da fare
+          //contesto.clearRect(0, 0, tela.width, tela.height);
+          contesto.font = '50px Sans-serif';
+          for (let i = 0; i < lettere_giuste.length; i++) {
+              switch (lettere_giuste[i]) {
+                  case 0:
+                      contesto.fillStyle = "green";
+                      prima_lettera = contesto.fillRect(0, 0, offset, offset);
+                      contesto.fillStyle = "white";
+                      contesto.strokeStyle = "white";
+                      contesto.lineWidth = 10;
+                      contesto.strokeRect(0, 0, offset, offset);
+                      contesto.fillText(temp[0], offset/2 - 25, offset / 2 - 25);
+                      contesto.fillStyle = "black";
+                      break;
+                  case 1:
+                      contesto.fillStyle = "green";
+                      seconda_lettera = contesto.fillRect(offset, 0, offset, offset);
+                      contesto.fillStyle = "white";
+                      contesto.strokeStyle = "white";
+                      contesto.lineWidth = 10;
+                      contesto.strokeRect(offset, 0, offset, offset);
+                      contesto.fillText(temp[1], offset + offset/2 - 25, offset / 2 - 25);
+                      contesto.fillStyle = "black";
+                      break;
+                  case 2:
+                      contesto.fillStyle = "green";
+                      terza_lettera = contesto.fillRect(offset * 2, 0, offset, offset);
+                      contesto.fillStyle = "white";
+                      contesto.strokeStyle = "white";
+                      contesto.lineWidth = 10;
+                      contesto.strokeRect(offset * 2, 0, offset, offset);
+                      contesto.fillText(temp[2], offset * 2 + offset/2 - 25, offset / 2 - 25);
+                      contesto.fillStyle = "black";
+                      break;
+                  case 3:
+                      contesto.fillStyle = "green";
+                      quarta_lettera = contesto.fillRect(offset * 3, 0, offset, offset);
+                      contesto.fillStyle = "white";
+                      contesto.strokeStyle = "white";
+                      contesto.lineWidth = 10;
+                      contesto.strokeRect(offset*3, 0, offset, offset);
+                      contesto.fillText(temp[3], offset * 3 + offset/2 - 25, offset / 2 - 25);
+                      contesto.fillStyle = "black";
+                      break;
+                  case 4:
+                      contesto.fillStyle = "green";
+                      quinta_lettera = contesto.fillRect(offset * 4, 0, offset, offset);
+                      contesto.fillStyle = "white";
+                      contesto.strokeStyle = "white";
+                      contesto.lineWidth = 10;
+                      contesto.strokeRect(offset * 4, 0, offset, offset);
+                      contesto.fillText(temp[4], offset * 4 + offset/2 - 25, offset / 2 - 25);
+                      contesto.fillStyle = "black";
+                      break;
+              }
+          }
+      }
+      // Da fare
+      contesto.font = '50px Sans-serif';
+      var indici_mancanti = "";
+      var idx = [];
+      for (let i = 0; i < lettere_giuste.length; i++) {
+          indici_mancanti += lettere_giuste[i];
+      }
+      for (let i = 0; i < lettere_giuste_pos.length; i++) {
+          indici_mancanti += lettere_giuste_pos[i];
+      }
+      if(indici_mancanti.match("0") == null){
+          idx.push(0);
+      }
+      if(indici_mancanti.match("1") == null){
+          idx.push(1);
+      }
+      if(indici_mancanti.match("2") == null){
+          idx.push(2);
+      }
+      if(indici_mancanti.match("3") == null){
+          idx.push(3);
+      }
+      if(indici_mancanti.match("4") == null){
+          idx.push(4);
+      }
+      console.log("indici mancanti: " +idx);
+      for (let i = 0; i < idx.length; i++) {
+          switch (idx[i]) {
+              case 0:
+                  contesto.fillStyle = "grey";
+                  prima_lettera = contesto.fillRect(0, 0, offset, offset);
+                  contesto.fillStyle = "black";
+                  contesto.strokeStyle = "white";
+                  contesto.lineWidth = 10;
+                  contesto.strokeRect(0, 0, offset, offset);
+                  contesto.fillText(temp[0], offset/2 - 25, offset / 2 - 25);
+                  contesto.fillStyle = "black";
+                  break;
+              case 1:
+                  contesto.fillStyle = "grey";
+                  seconda_lettera = contesto.fillRect(offset, 0, offset, offset);
+                  contesto.fillStyle = "black";
+                  contesto.strokeStyle = "white";
+                  contesto.lineWidth = 10;
+                  contesto.strokeRect(offset, 0, offset, offset);
+                  contesto.fillText(temp[1], offset + offset/2 - 25, offset / 2 - 25);
+                  contesto.fillStyle = "black";
+                  break;
+              case 2:
+                  contesto.fillStyle = "grey";
+                  terza_lettera = contesto.fillRect(offset * 2, 0, offset, offset);
+                  contesto.fillStyle = "black";
+                  contesto.strokeStyle = "white";
+                  contesto.lineWidth = 10;
+                  contesto.strokeRect(offset * 2, 0, offset, offset);
+                  contesto.fillText(temp[2], offset * 2 + offset/2 - 25, offset / 2 - 25);
+                  contesto.fillStyle = "black";
+                  break;
+              case 3:
+                  contesto.fillStyle = "grey";
+                  quarta_lettera = contesto.fillRect(offset * 3, 0, offset, offset);
+                  contesto.fillStyle = "black";
+                  contesto.strokeStyle = "white";
+                  contesto.lineWidth = 10;
+                  contesto.strokeRect(offset * 3, 0, offset, offset);
+                  contesto.fillText(temp[3], offset * 3 + offset/2 - 25, offset / 2 - 25);
+                  contesto.fillStyle = "black";
+                  break;
+              case 4:
+                  contesto.fillStyle = "grey";
+                  quinta_lettera = contesto.fillRect(offset * 4, 0, offset, offset);
+                  contesto.fillStyle = "black";
+                  contesto.strokeStyle = "white";
+                  contesto.lineWidth = 10;
+                  contesto.strokeRect(offset * 4, 0, offset, offset);
+                  contesto.fillText(temp[4], offset * 4 + offset/2 - 25, offset / 2 - 25);
+                  contesto.fillStyle = "black";
+                  break;
+          }
+      }
+      //contesto.clearRect(0, 0, tela.width, tela.height); 
+  }
+  if(name == "{enter}" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) == undefined) {
+      document.getElementById("messaggio").style.visibility = 'visible';
+      document.getElementById("messaggio").innerHTML = "PAROLA NON PRESENTE NEL DIZIONARIO"; 
+  }
+  // FInito la partita
+  if(tentativi == 6){
+      document.getElementById("messaggio").style.visibility = 'visible';
+      document.getElementById("messaggio").innerHTML = "La parola era: " + parola;    
+  }
+  document.getElementById("p2").innerHTML = temp;
+  switch(tentativi){
+      case 1:
+          copia_canvas_contesto.drawImage(tela,0,0);
+          break;
+      case 2:
+          copia2_canvas_contesto.drawImage(tela,0,0);
+          break;
+      case 3:
+          copia3_canvas_contesto.drawImage(tela,0,0);
+          break;
+      case 4:
+          copia4_canvas_contesto.drawImage(tela,0,0);
+          break;
+      case 5:
+          copia5_canvas_contesto.drawImage(tela,0,0);
+          break;
+      case 6:
+          copia6_canvas_contesto.drawImage(tela,0,0);
+          break;
+  }
+}
+
 document.addEventListener('keydown', (event) => {
     var name = event.key;
     var code = event.code;
@@ -35,7 +321,7 @@ document.addEventListener('keydown', (event) => {
         temp = temp.slice(0, -1);
     }
     if (name == "Enter" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) != undefined
-    && tentativi <=6) {
+    && tentativi <=5) {
         tentativi++;
         document.getElementById("tentativi").innerHTML = "Tentativi: " + tentativi;
         document.getElementById("messaggio").style.visibility = 'hidden';
@@ -312,19 +598,15 @@ function controllaParola(p) {
 function controllaLettera(p) {
     indici = [];
     for (let i = 0; i < p.length; i++) {
-        var ricerca = p[i];
+        var ricerca = parola[i];
         // TOFIX: con la parola CHINE, e l'ipotesi CICCO le lettere
         // si colorano nel modo sbagliato
         var re = new RegExp(ricerca, "gm");
-        risultato = parola.match(re);
-        if(risultato != null){
-            var occorrenze = risultato.length;
-        }
-        var aggiunto = 0;
-        console.log("occorenze " + risultato);
-        if(risultato != null && p[i] != parola[i] && aggiunto <= occorrenze){
-            indici.push(i);
-            aggiunto++;
+        risultato = p.match(re);
+        console.log("risultato " + risultato);
+        if(risultato != null && p[i] != parola[i]){
+            console.log("index " + p.indexOf(parola[i],i));
+            indici.push(p.indexOf(parola[i],i));
         }
         //console.log(risultato);
     }
