@@ -25,12 +25,54 @@ function numeroACaso(min, max) {
 temp = "";
 var tentativi = 0;
 
-const Keyboard = window.SimpleKeyboard.default;
+let Keyboard = window.SimpleKeyboard.default;
 
-const myKeyboard = new Keyboard({
+let keyboard = new Keyboard({
   onChange: input => onChange(input),
-  onKeyPress: button => onKeyPress(button)
+  onKeyPress: button => onKeyPress(button),
+  mergeDisplay: true,
+  layoutName: "default",
+  layout: {
+    default: [
+      "q w e r t y u i o p",
+      "a s d f g h j k l",
+      "{shift} z x c v b n m {backspace}",
+      "{numbers} {space} {ent}"
+    ],
+    shift: [
+      "Q W E R T Y U I O P",
+      "A S D F G H J K L",
+      "{shift} Z X C V B N M {backspace}",
+      "{numbers} {space} {ent}"
+    ],
+    numbers: ["1 2 3", "4 5 6", "7 8 9", "{abc} 0 {backspace}"]
+  },
+  display: {
+    "{numbers}": "123",
+    "{ent}": "return",
+    "{escape}": "esc ⎋",
+    "{tab}": "tab ⇥",
+    "{backspace}": "⌫",
+    "{capslock}": "caps lock ⇪",
+    "{shift}": "⇧",
+    "{controlleft}": "ctrl ⌃",
+    "{controlright}": "ctrl ⌃",
+    "{altleft}": "alt ⌥",
+    "{altright}": "alt ⌥",
+    "{metaleft}": "cmd ⌘",
+    "{metaright}": "cmd ⌘",
+    "{abc}": "ABC"
+  }
 });
+
+/**
+ * Update simple-keyboard when input is changed directly
+ */
+document.querySelector(".input").addEventListener("input", event => {
+  keyboard.setInput(event.target.value);
+});
+
+console.log(keyboard);
 
 function onChange(input) {
   document.querySelector(".input").value = input;
@@ -39,16 +81,16 @@ function onChange(input) {
 
 function onKeyPress(button) {
   console.log("Button pressed", button);
-  document.getElementById("messaggio").innerHTML = ("Pulsante premuto " + button);
+  // document.getElementById("messaggio").innerHTML = ("Pulsante premuto " + button);
   var name = button;
   //console.log(`Key pressed ${name} \r\n Key code value: ${code}`);
-  if (temp.length <= 4 && name != "{bksp}" && name != "Alt" && name != "{enter}") {
+  if (temp.length <= 4 && name != "{backspace}" && name != "Alt" && name != "{ent}") {
       temp += name.toUpperCase();
   }
-  if (name == "{bksp}") {
+  if (name == "{backspace}") {
       temp = temp.slice(0, -1);
   }
-  if (name == "{enter}" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) != undefined
+  if (name == "{ent}" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) != undefined
   && tentativi <=5) {
       tentativi++;
       document.getElementById("tentativi").innerHTML = "Tentativi: " + tentativi;
@@ -283,7 +325,7 @@ function onKeyPress(button) {
       }
       //contesto.clearRect(0, 0, tela.width, tela.height); 
   }
-  if(name == "{enter}" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) == undefined) {
+  if(name == "{ent}" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) == undefined) {
       document.getElementById("messaggio").style.visibility = 'visible';
       document.getElementById("messaggio").innerHTML = "PAROLA NON PRESENTE NEL DIZIONARIO"; 
   }
