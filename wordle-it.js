@@ -25,7 +25,7 @@ function numeroACaso(min, max) {
 temp = "";
 var tentativi = 0;
 
-
+/*
 const Keyboard = window.SimpleKeyboard.default;
 
 const myKeyboard = new Keyboard({
@@ -309,6 +309,7 @@ function onKeyPress(button) {
           break;
   }
 }
+*/
 
 document.addEventListener('keydown', (event) => {
     var name = event.key;
