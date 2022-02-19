@@ -28,7 +28,6 @@ var tentativi = 0;
 let Keyboard = window.SimpleKeyboard.default;
 
 let keyboard = new Keyboard({
-  onChange: input => onChange(input),
   onKeyPress: button => onKeyPress(button),
   mergeDisplay: true,
   layoutName: "default",
@@ -65,19 +64,8 @@ let keyboard = new Keyboard({
   }
 });
 
-/**
- * Update simple-keyboard when input is changed directly
- */
-document.querySelector(".input").addEventListener("input", event => {
-  keyboard.setInput(event.target.value);
-});
 
 console.log(keyboard);
-
-function onChange(input) {
-  document.querySelector(".input").value = input;
-  console.log("Input changed", input);
-}
 
 function onKeyPress(button) {
   console.log("Button pressed", button);
@@ -252,8 +240,7 @@ function onKeyPress(button) {
                       indici_mancanti += lettere_giuste_pos[i];
                   }
               }
-              console.log("QUAAA:" + indici_mancanti);
-              console.log("ssss" + indici_mancanti.match(/^1/gm));
+              //console.log("QUAAA:" + indici_mancanti);
               if(indici_mancanti.match(0) == null){
                   idx.push(0);
               }
@@ -660,7 +647,7 @@ function controllaLettera(p) {
         console.log("risultato " + risultato);
         if(risultato != null && p[i] != parola[i]){
             console.log("index " + p.indexOf(parola[i],i));
-            indici.push(p.indexOf(parola[i],i));
+            indici.push(p.indexOf(parola[i]));
         }
         //console.log(risultato);
     }
