@@ -39,6 +39,7 @@ function onChange(input) {
 
 function onKeyPress(button) {
   console.log("Button pressed", button);
+  document.getElementById("messaggio").innerHTML = ("Pulsante premuto " + button);
   var name = button;
   //console.log(`Key pressed ${name} \r\n Key code value: ${code}`);
   if (temp.length <= 4 && name != "{bksp}" && name != "Alt" && name != "{enter}") {
