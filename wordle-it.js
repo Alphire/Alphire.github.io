@@ -24,6 +24,9 @@ function numeroACaso(min, max) {
 }
 
 temp = "";
+let_presenti = "";
+let_giuste = "";
+let_non_presenti = "";
 var tentativi = 0;
 
 let Keyboard = window.SimpleKeyboard.default;
@@ -271,6 +274,9 @@ function onKeyPress(button) {
               if(indici_mancanti.match(4) == null){
                   idx.push(4);
               }
+            for (let i = 0; i < idx.length; i++){
+                let_non_presenti += temp[idx[i]].toLowerCase() + " ";
+            }
       for (let i = 0; i < idx.length; i++) {
           switch (idx[i]) {
               case 0:
@@ -327,6 +333,22 @@ function onKeyPress(button) {
       }
       //contesto.clearRect(0, 0, tela.width, tela.height); 
       temp = "";  
+      keyboard.setOptions({
+        buttonTheme: [
+            {
+                class: "pulsante_non_presente",
+                buttons: let_non_presenti
+            },
+            {
+                class: "pulsante_presente",
+                buttons: let_presenti
+            },
+            {
+                class: "pulsante_giusto",
+                buttons: let_giuste
+            }
+        ]
+    });
   }
   if(name == "{ent}" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) == undefined) {
       document.getElementById("messaggio").style.visibility = 'visible';
@@ -650,6 +672,9 @@ function controllaParola(p) {
         }
     }
     console.log("Lettere nella posizione esatta: " + indici);
+    for (let i = 0; i < indici.length; i++) {
+        let_giuste += p[indici[i]].toLowerCase() + " ";
+    }
     return indici;
 }
 
@@ -669,6 +694,9 @@ function controllaLettera(p) {
         //console.log(risultato);
     }
     console.log("Lettere presenti " + indici);
+    for (let i = 0; i < indici.length; i++) {
+        let_presenti += p[indici[i]].toLowerCase() + " ";
+    }
     return indici;
 }
 
