@@ -49,7 +49,7 @@ let keyboard = new Keyboard({
   },
   display: {
     "{numbers}": "123",
-    "{ent}": "return",
+    "{ent}": "invio",
     "{escape}": "esc ⎋",
     "{tab}": "tab ⇥",
     "{backspace}": "⌫",
@@ -326,6 +326,7 @@ function onKeyPress(button) {
           }
       }
       //contesto.clearRect(0, 0, tela.width, tela.height); 
+      temp = "";  
   }
   if(name == "{ent}" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) == undefined) {
       document.getElementById("messaggio").style.visibility = 'visible';
