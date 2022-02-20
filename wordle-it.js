@@ -1,3 +1,4 @@
+
 /*
  * anime.js v3.2.1
  * (c) 2020 Julian Garnier
@@ -61,7 +62,21 @@ let keyboard = new Keyboard({
     "{metaleft}": "cmd ⌘",
     "{metaright}": "cmd ⌘",
     "{abc}": "ABC"
-  }
+  },
+  buttonTheme:[
+      {
+          class:"pulsante_giusto",
+          buttons:""
+      },
+      {
+        class:"pulsante_presente",
+        buttons:""
+      },
+      {
+        class:"pulsante_non_presente",
+        buttons:""
+      }
+  ]
 });
 
 
@@ -342,6 +357,7 @@ function onKeyPress(button) {
           copia6_canvas_contesto.drawImage(tela,0,0);
           break;
   }
+
 }
 
 
