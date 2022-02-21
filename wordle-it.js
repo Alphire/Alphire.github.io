@@ -717,9 +717,18 @@ function controllaLettera(p) {
 
 anime({
     targets: p2,
+    translateY: -10,
+    // color: ['#ffffff','#000000'],
+    duration: 2000,
+    direction: 'alternate',
+    loop: true,
+    easing: 'easeInOutSine'
+  });
+
+  anime({
+    targets: messaggio,
     translateY: -40,
     // color: ['#ffffff','#000000'],
     duration: 3500,
     direction: 'alternate'
   });
-
