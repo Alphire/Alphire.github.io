@@ -380,7 +380,22 @@ function onKeyPress(button) {
           copia6_canvas_contesto.drawImage(tela,0,0);
           break;
   }
-
+  keyboard.setOptions({
+    buttonTheme: [
+        {
+            class: "pulsante_non_presente",
+            buttons: let_non_presenti
+        },
+        {
+            class: "pulsante_presente",
+            buttons: let_presenti
+        },
+        {
+            class: "pulsante_giusto",
+            buttons: let_giuste
+        }
+    ]
+});
 }
 
 
