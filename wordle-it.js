@@ -99,7 +99,7 @@ function onKeyPress(button) {
   if (name == "{ent}" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) != undefined
   && tentativi <=5) {
       tentativi++;
-      document.getElementById("tentativi").innerHTML = "Tentativi: " + tentativi;
+      document.getElementById("tentativi").innerHTML = "tentativi: " + tentativi;
       document.getElementById("messaggio").style.visibility = 'hidden';
 
       tela = document.getElementById("myCanvas");
@@ -412,7 +412,7 @@ document.addEventListener('keydown', (event) => {
     if (name == "Enter" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) != undefined
     && tentativi <=5) {
         tentativi++;
-        document.getElementById("tentativi").innerHTML = "Tentativi: " + tentativi;
+        document.getElementById("tentativi").innerHTML = "tentativi : " + tentativi;
         document.getElementById("messaggio").style.visibility = 'hidden';
 
         tela = document.getElementById("myCanvas");
