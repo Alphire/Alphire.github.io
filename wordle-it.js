@@ -353,6 +353,8 @@ function onKeyPress(button) {
   if(name == "{ent}" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) == undefined) {
       document.getElementById("messaggio").style.visibility = 'visible';
       document.getElementById("messaggio").innerHTML = "PAROLA NON PRESENTE NEL DIZIONARIO"; 
+      document.getElementById("messaggio").style.color = "red";
+      document.getElementById("messaggio").style.fontWeight = "bold";
   }
   // FInito la partita
   if(tentativi == 6){
@@ -725,10 +727,8 @@ anime({
     easing: 'easeInOutSine'
   });
 
-  anime({
-    targets: messaggio,
-    translateY: -40,
-    // color: ['#ffffff','#000000'],
-    duration: 3500,
-    direction: 'alternate'
-  });
+anime({
+    targets: 'canvas',
+    rotate: '360',
+    duration: 3500
+});
