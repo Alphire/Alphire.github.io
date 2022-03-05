@@ -1,2 +1,2 @@
 # Alphire.github.io
-Wordle in Italinao, ma molto peggio 
+Wordle in Italiano, ma molto peggio.

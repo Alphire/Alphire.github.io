@@ -82,7 +82,6 @@ let keyboard = new Keyboard({
   ]
 });
 
-
 console.log(keyboard);
 
 function onKeyPress(button) {
@@ -353,8 +352,6 @@ function onKeyPress(button) {
   if(name == "{ent}" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) == undefined) {
       document.getElementById("messaggio").style.visibility = 'visible';
       document.getElementById("messaggio").innerHTML = "PAROLA NON PRESENTE NEL DIZIONARIO"; 
-      document.getElementById("messaggio").style.color = "red";
-      document.getElementById("messaggio").style.fontWeight = "bold";
   }
   // FInito la partita
   if(tentativi == 6){
@@ -382,6 +379,7 @@ function onKeyPress(button) {
           copia6_canvas_contesto.drawImage(tela,0,0);
           break;
   }
+  
   keyboard.setOptions({
     buttonTheme: [
         {
@@ -646,6 +644,22 @@ document.addEventListener('keydown', (event) => {
             }
         }
         //contesto.clearRect(0, 0, tela.width, tela.height); 
+        keyboard.setOptions({
+            buttonTheme: [
+                {
+                    class: "pulsante_non_presente",
+                    buttons: let_non_presenti
+                },
+                {
+                    class: "pulsante_presente",
+                    buttons: let_presenti
+                },
+                {
+                    class: "pulsante_giusto",
+                    buttons: let_giuste
+                }
+            ]
+        });
     }
     if(name == "Enter" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) == undefined) {
         document.getElementById("messaggio").style.visibility = 'visible';
