@@ -29,374 +29,65 @@ let_giuste = "";
 let_non_presenti = "";
 var tentativi = 0;
 
-let Keyboard = window.SimpleKeyboard.default;
-
-let keyboard = new Keyboard({
-  onKeyPress: button => onKeyPress(button),
-  mergeDisplay: true,
-  layoutName: "default",
-  layout: {
-    default: [
+try{
+    let Keyboard = window.SimpleKeyboard.default;
+    let keyboard = new Keyboard({
+    onKeyPress: button => onKeyPress(button),
+    mergeDisplay: true,
+    layoutName: "default",
+    layout: {
+        default: [
+            "Q W E R T Y U I O P",
+            "A S D F G H J K L",
+            "Z X C V B N M {backspace}",
+            "{ent}"
+        ],
+        shift: [
         "Q W E R T Y U I O P",
         "A S D F G H J K L",
         "Z X C V B N M {backspace}",
         "{ent}"
-    ],
-    shift: [
-      "Q W E R T Y U I O P",
-      "A S D F G H J K L",
-      "Z X C V B N M {backspace}",
-      "{ent}"
-    ],
-    numbers: ["1 2 3", "4 5 6", "7 8 9", "{abc} 0 {backspace}"]
-  },
-  display: {
-    "{numbers}": "123",
-    "{ent}": "invio",
-    "{escape}": "esc ⎋",
-    "{tab}": "tab ⇥",
-    "{backspace}": "⌫",
-    "{capslock}": "caps lock ⇪",
-    "{shift}": "⇧",
-    "{controlleft}": "ctrl ⌃",
-    "{controlright}": "ctrl ⌃",
-    "{altleft}": "alt ⌥",
-    "{altright}": "alt ⌥",
-    "{metaleft}": "cmd ⌘",
-    "{metaright}": "cmd ⌘",
-    "{abc}": "ABC"
-  },
-  buttonTheme:[
-      {
-        class:"pulsante_giusto",
-        buttons:""
-      },
-      {
-        class:"pulsante_presente",
-        buttons:""
-      },
-      {
-        class:"pulsante_non_presente",
-        buttons:""
-      }
-  ]
-});
-
-console.log(keyboard);
-
-function onKeyPress(button) {
-  console.log("Button pressed", button);
-  // document.getElementById("messaggio").innerHTML = ("Pulsante premuto " + button);
-  var name = button;
-  //console.log(`Key pressed ${name} \r\n Key code value: ${code}`);
-  if (temp.length <= 4 && name != "{backspace}" && name != "Alt" && name != "{ent}") {
-      temp += name.toUpperCase();
-  }
-  if (name == "{backspace}") {
-      temp = temp.slice(0, -1);
-  }
-  if (name == "{ent}" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) != undefined
-  && tentativi <=5) {
-      tentativi++;
-      document.getElementById("tentativi").innerHTML = "tentativi: " + tentativi;
-      document.getElementById("messaggio").style.visibility = 'hidden';
-
-      tela = document.getElementById("myCanvas");
-      contesto = tela.getContext("2d");
-
-      copia_canvas = document.getElementById("copia1Canvas");
-      copia_canvas_contesto = copia_canvas.getContext("2d");
-
-      copia2_canvas = document.getElementById("copia2Canvas");
-      copia2_canvas_contesto = copia2_canvas.getContext("2d");
-
-      copia3_canvas = document.getElementById("copia3Canvas");
-      copia3_canvas_contesto = copia3_canvas.getContext("2d");
-
-      copia4_canvas = document.getElementById("copia4Canvas");
-      copia4_canvas_contesto = copia4_canvas.getContext("2d");
-
-      copia5_canvas = document.getElementById("copia5Canvas");
-      copia5_canvas_contesto = copia5_canvas.getContext("2d");
-
-      copia6_canvas = document.getElementById("copia6Canvas");
-      copia6_canvas_contesto = copia6_canvas.getContext("2d");
-      
-      var offset = tela.width / 5;
-      lettere_giuste = controllaParola(temp);
-      lettere_giuste_pos = controllaLettera(temp);
-      if (lettere_giuste_pos.length != 0) {
-          // da fare
-          //contesto.clearRect(0, 0, tela.width, tela.height); 
-          contesto.font = '50px Sans-serif';
-          for (let i = 0; i < lettere_giuste_pos.length; i++) {
-              switch (lettere_giuste_pos[i]) {
-                  case 0:
-                      contesto.fillStyle = "yellow";
-                      prima_lettera = contesto.fillRect(0, 0, offset, offset);
-                      contesto.fillStyle = "black";
-                      contesto.strokeStyle = "white";
-                      contesto.lineWidth = 10;
-                      contesto.strokeRect(0, 0, offset, offset);
-                      contesto.fillText(temp[0], offset/2 - 25, offset / 2 - 25);
-                      contesto.fillStyle = "black";
-                      break;
-                  case 1:
-                      contesto.fillStyle = "yellow";
-                      seconda_lettera = contesto.fillRect(offset, 0, offset, offset);
-                      contesto.fillStyle = "black";
-                      contesto.strokeStyle = "white";
-                      contesto.lineWidth = 10;
-                      contesto.strokeRect(offset, 0, offset, offset);
-                      contesto.fillText(temp[1], offset + offset/2 - 25, offset / 2 - 25);
-                      contesto.fillStyle = "black";
-                      break;
-                  case 2:
-                      contesto.fillStyle = "yellow";
-                      terza_lettera = contesto.fillRect(offset * 2, 0, offset, offset);
-                      contesto.fillStyle = "black";
-                      contesto.strokeStyle = "white";
-                      contesto.lineWidth = 10;
-                      contesto.strokeRect(offset * 2, 0, offset, offset);
-                      contesto.fillText(temp[2], offset * 2 + offset/2 - 25, offset / 2 - 25);
-                      contesto.fillStyle = "black";
-                      break;
-                  case 3:
-                      contesto.fillStyle = "yellow";
-                      quarta_lettera = contesto.fillRect(offset * 3, 0, offset, offset);
-                      contesto.fillStyle = "black";
-                      contesto.strokeStyle = "white";
-                      contesto.lineWidth = 10;
-                      contesto.strokeRect(offset * 3, 0, offset, offset);
-                      contesto.fillText(temp[3], offset * 3 + offset/2 - 25, offset / 2 - 25);
-                      contesto.fillStyle = "black";
-                      break;
-                  case 4:
-                      contesto.fillStyle = "yellow";
-                      quinta_lettera = contesto.fillRect(offset * 4, 0, offset, offset);
-                      contesto.fillStyle = "black";
-                      contesto.strokeStyle = "white";
-                      contesto.lineWidth = 10;
-                      contesto.strokeRect(offset * 4, 0, offset, offset);
-                      contesto.fillText(temp[4], offset * 4 + offset/2 - 25, offset / 2 - 25);
-                      contesto.fillStyle = "black";
-                      break;
-              }
-          }
-      }
-      if (lettere_giuste.length != 0) {
-          // da fare
-          //contesto.clearRect(0, 0, tela.width, tela.height);
-          contesto.font = '50px Sans-serif';
-          for (let i = 0; i < lettere_giuste.length; i++) {
-              switch (lettere_giuste[i]) {
-                  case 0:
-                      contesto.fillStyle = "green";
-                      prima_lettera = contesto.fillRect(0, 0, offset, offset);
-                      contesto.fillStyle = "white";
-                      contesto.strokeStyle = "white";
-                      contesto.lineWidth = 10;
-                      contesto.strokeRect(0, 0, offset, offset);
-                      contesto.fillText(temp[0], offset/2 - 25, offset / 2 - 25);
-                      contesto.fillStyle = "black";
-                      break;
-                  case 1:
-                      contesto.fillStyle = "green";
-                      seconda_lettera = contesto.fillRect(offset, 0, offset, offset);
-                      contesto.fillStyle = "white";
-                      contesto.strokeStyle = "white";
-                      contesto.lineWidth = 10;
-                      contesto.strokeRect(offset, 0, offset, offset);
-                      contesto.fillText(temp[1], offset + offset/2 - 25, offset / 2 - 25);
-                      contesto.fillStyle = "black";
-                      break;
-                  case 2:
-                      contesto.fillStyle = "green";
-                      terza_lettera = contesto.fillRect(offset * 2, 0, offset, offset);
-                      contesto.fillStyle = "white";
-                      contesto.strokeStyle = "white";
-                      contesto.lineWidth = 10;
-                      contesto.strokeRect(offset * 2, 0, offset, offset);
-                      contesto.fillText(temp[2], offset * 2 + offset/2 - 25, offset / 2 - 25);
-                      contesto.fillStyle = "black";
-                      break;
-                  case 3:
-                      contesto.fillStyle = "green";
-                      quarta_lettera = contesto.fillRect(offset * 3, 0, offset, offset);
-                      contesto.fillStyle = "white";
-                      contesto.strokeStyle = "white";
-                      contesto.lineWidth = 10;
-                      contesto.strokeRect(offset*3, 0, offset, offset);
-                      contesto.fillText(temp[3], offset * 3 + offset/2 - 25, offset / 2 - 25);
-                      contesto.fillStyle = "black";
-                      break;
-                  case 4:
-                      contesto.fillStyle = "green";
-                      quinta_lettera = contesto.fillRect(offset * 4, 0, offset, offset);
-                      contesto.fillStyle = "white";
-                      contesto.strokeStyle = "white";
-                      contesto.lineWidth = 10;
-                      contesto.strokeRect(offset * 4, 0, offset, offset);
-                      contesto.fillText(temp[4], offset * 4 + offset/2 - 25, offset / 2 - 25);
-                      contesto.fillStyle = "black";
-                      break;
-              }
-          }
-      }
-              // Da fare
-              contesto.font = '50px Sans-serif';
-              var indici_mancanti = "";
-              var idx = [];
-              for (let i = 0; i < lettere_giuste.length; i++) {
-                  if (lettere_giuste[i] != -1){
-                      indici_mancanti += lettere_giuste[i];
-                  }
-              }
-              for (let i = 0; i < lettere_giuste_pos.length; i++) {
-                  if (lettere_giuste_pos[i] != -1){
-                      indici_mancanti += lettere_giuste_pos[i];
-                  }
-              }
-              //console.log("QUAAA:" + indici_mancanti);
-              if(indici_mancanti.match(0) == null){
-                  idx.push(0);
-              }
-              if(indici_mancanti.match(1) == null){
-                  idx.push(1);
-              }
-              if(indici_mancanti.match(2) == null){
-                  idx.push(2);
-              }
-              if(indici_mancanti.match(3) == null){
-                  idx.push(3);
-              }
-              if(indici_mancanti.match(4) == null){
-                  idx.push(4);
-              }
-            for (let i = 0; i < idx.length; i++){
-                let_non_presenti += temp[idx[i]] + " ";
-            }
-      for (let i = 0; i < idx.length; i++) {
-          switch (idx[i]) {
-              case 0:
-                  contesto.fillStyle = "grey";
-                  prima_lettera = contesto.fillRect(0, 0, offset, offset);
-                  contesto.fillStyle = "black";
-                  contesto.strokeStyle = "white";
-                  contesto.lineWidth = 10;
-                  contesto.strokeRect(0, 0, offset, offset);
-                  contesto.fillText(temp[0], offset/2 - 25, offset / 2 - 25);
-                  contesto.fillStyle = "black";
-                  break;
-              case 1:
-                  contesto.fillStyle = "grey";
-                  seconda_lettera = contesto.fillRect(offset, 0, offset, offset);
-                  contesto.fillStyle = "black";
-                  contesto.strokeStyle = "white";
-                  contesto.lineWidth = 10;
-                  contesto.strokeRect(offset, 0, offset, offset);
-                  contesto.fillText(temp[1], offset + offset/2 - 25, offset / 2 - 25);
-                  contesto.fillStyle = "black";
-                  break;
-              case 2:
-                  contesto.fillStyle = "grey";
-                  terza_lettera = contesto.fillRect(offset * 2, 0, offset, offset);
-                  contesto.fillStyle = "black";
-                  contesto.strokeStyle = "white";
-                  contesto.lineWidth = 10;
-                  contesto.strokeRect(offset * 2, 0, offset, offset);
-                  contesto.fillText(temp[2], offset * 2 + offset/2 - 25, offset / 2 - 25);
-                  contesto.fillStyle = "black";
-                  break;
-              case 3:
-                  contesto.fillStyle = "grey";
-                  quarta_lettera = contesto.fillRect(offset * 3, 0, offset, offset);
-                  contesto.fillStyle = "black";
-                  contesto.strokeStyle = "white";
-                  contesto.lineWidth = 10;
-                  contesto.strokeRect(offset * 3, 0, offset, offset);
-                  contesto.fillText(temp[3], offset * 3 + offset/2 - 25, offset / 2 - 25);
-                  contesto.fillStyle = "black";
-                  break;
-              case 4:
-                  contesto.fillStyle = "grey";
-                  quinta_lettera = contesto.fillRect(offset * 4, 0, offset, offset);
-                  contesto.fillStyle = "black";
-                  contesto.strokeStyle = "white";
-                  contesto.lineWidth = 10;
-                  contesto.strokeRect(offset * 4, 0, offset, offset);
-                  contesto.fillText(temp[4], offset * 4 + offset/2 - 25, offset / 2 - 25);
-                  contesto.fillStyle = "black";
-                  break;
-          }
-      }
-      //contesto.clearRect(0, 0, tela.width, tela.height); 
-      temp = "";  
-      keyboard.setOptions({
-        buttonTheme: [
-            {
-                class: "pulsante_non_presente",
-                buttons: let_non_presenti
-            },
-            {
-                class: "pulsante_presente",
-                buttons: let_presenti
-            },
-            {
-                class: "pulsante_giusto",
-                buttons: let_giuste
-            }
-        ]
-    });
-  }
-  if(name == "{ent}" && temp.length == 5 && parole_disponibili.find(element => element == temp.toLocaleLowerCase()) == undefined) {
-      document.getElementById("messaggio").style.visibility = 'visible';
-      document.getElementById("messaggio").innerHTML = "PAROLA NON PRESENTE NEL DIZIONARIO"; 
-  }
-  // FInito la partita
-  if(tentativi == 6){
-      document.getElementById("messaggio").style.visibility = 'visible';
-      document.getElementById("messaggio").innerHTML = "La parola era: " + parola;    
-  }
-  document.getElementById("p2").innerHTML = temp;
-  switch(tentativi){
-      case 1:
-          copia_canvas_contesto.drawImage(tela,0,0);
-          break;
-      case 2:
-          copia2_canvas_contesto.drawImage(tela,0,0);
-          break;
-      case 3:
-          copia3_canvas_contesto.drawImage(tela,0,0);
-          break;
-      case 4:
-          copia4_canvas_contesto.drawImage(tela,0,0);
-          break;
-      case 5:
-          copia5_canvas_contesto.drawImage(tela,0,0);
-          break;
-      case 6:
-          copia6_canvas_contesto.drawImage(tela,0,0);
-          break;
-  }
-  
-  keyboard.setOptions({
-    buttonTheme: [
+        ],
+        numbers: ["1 2 3", "4 5 6", "7 8 9", "{abc} 0 {backspace}"]
+    },
+    display: {
+        "{numbers}": "123",
+        "{ent}": "invio",
+        "{escape}": "esc ⎋",
+        "{tab}": "tab ⇥",
+        "{backspace}": "⌫",
+        "{capslock}": "caps lock ⇪",
+        "{shift}": "⇧",
+        "{controlleft}": "ctrl ⌃",
+        "{controlright}": "ctrl ⌃",
+        "{altleft}": "alt ⌥",
+        "{altright}": "alt ⌥",
+        "{metaleft}": "cmd ⌘",
+        "{metaright}": "cmd ⌘",
+        "{abc}": "ABC"
+    },
+    buttonTheme:[
         {
-            class: "pulsante_non_presente",
-            buttons: let_non_presenti
+            class:"pulsante_giusto",
+            buttons:""
         },
         {
-            class: "pulsante_presente",
-            buttons: let_presenti
+            class:"pulsante_presente",
+            buttons:""
         },
         {
-            class: "pulsante_giusto",
-            buttons: let_giuste
+            class:"pulsante_non_presente",
+            buttons:""
         }
     ]
-});
+    });
+    console.log(keyboard);
 }
+catch{
+    console.log("Internet assente?")
+}
+
+
 
 
 document.addEventListener('keydown', (event) => {
